@@ -12,4 +12,4 @@ router = APIRouter(
 @router.post("/")
 async def create_repository(repository: RepositoryCreate):
 
-    return RepositoryService.create_repository(repository)
+    return await RepositoryService.create_repository(repository)
