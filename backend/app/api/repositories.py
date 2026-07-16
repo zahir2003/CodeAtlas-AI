@@ -1,6 +1,6 @@
 from fastapi import APIRouter
 
-from app.schemas.repository import RepositoryCreate
+from app.schemas.repository import RepositoryCreate, RepositoryResponse
 from app.services.repository_service import RepositoryService
 
 router = APIRouter(
@@ -9,7 +9,10 @@ router = APIRouter(
 )
 
 
-@router.post("/")
+@router.post(
+    "/",
+    response_model=RepositoryResponse
+)
 async def create_repository(repository: RepositoryCreate):
 
     return await RepositoryService.create_repository(repository)

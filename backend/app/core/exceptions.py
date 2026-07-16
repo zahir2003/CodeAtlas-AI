@@ -1,6 +1,10 @@
-class RepositoryNotFoundError(Exception):
+class RepositoryNotFoundException(Exception):
     pass
 
 
-class InvalidGitHubRepository(Exception):
+class InvalidRepositoryURLException(Exception):
+    pass
+
+
+class GitHubAPIException(Exception):
     pass

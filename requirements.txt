@@ -5,3 +5,6 @@ httpx==0.28.1
 pydantic==2.11.7
 pydantic-settings==2.10.1
 python-multipart==0.0.20
+GitPython==3.1.45
+tree-sitter==0.25.1
+tree-sitter-language-pack==0.10.0

@@ -1,0 +1,13 @@
+from enum import Enum
+
+
+class JobStatus(str, Enum):
+    PENDING = "PENDING"
+    CLONING = "CLONING"
+    DISCOVERING = "DISCOVERING"
+    PARSING = "PARSING"
+    CHUNKING = "CHUNKING"
+    EMBEDDING = "EMBEDDING"
+    INDEXING = "INDEXING"
+    COMPLETED = "COMPLETED"
+    FAILED = "FAILED"

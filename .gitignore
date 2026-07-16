@@ -156,6 +156,7 @@ venv/
 ENV/
 env.bak/
 venv.bak/
+.env.example
 
 # Spyder project settings
 .spyderproject
@@ -247,3 +248,13 @@ reports/
 
 # Build
 *.zip
+
+# Logs
+logs/
+*.log
+
+# Cloned repositories
+backend/storage/repositories/
+
+# Generated manifests
+backend/storage/**/*.json

@@ -1,10 +1,10 @@
-import httpx
 from urllib.parse import urlparse
+
+from app.clients.base_client import BaseClient
+from app.core.constants import GITHUB_API_BASE_URL
 
 
 class GitHubClient:
-
-    BASE_URL = "https://api.github.com/repos"
 
     @staticmethod
     async def get_repository(repo_url: str):
@@ -13,20 +13,25 @@ class GitHubClient:
 
         owner, repo = parsed.path.strip("/").split("/")[:2]
 
-        url = f"{GitHubClient.BASE_URL}/{owner}/{repo}"
+        url = f"{GITHUB_API_BASE_URL}/{owner}/{repo}"
 
-        async with httpx.AsyncClient(
-            timeout=15,
-            follow_redirects=True
-        ) as client:
+        response = await BaseClient.get(url)
 
-            response = await client.get(
-                url,
-                headers={
-                    "Accept": "application/vnd.github+json",
-                    "X-GitHub-Api-Version": "2022-11-28"
-                }
-            )
+        if response.status_code != 200:
+            return None
+
+        return response.json()
+
+    @staticmethod
+    async def check_repository_files(repo_url: str):
+
+        parsed = urlparse(repo_url)
+
+        owner, repo = parsed.path.strip("/").split("/")[:2]
+
+        url = f"{GITHUB_API_BASE_URL}/{owner}/{repo}/contents"
+
+        response = await BaseClient.get(url)
 
         if response.status_code != 200:
             return None
