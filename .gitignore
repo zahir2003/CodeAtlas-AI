@@ -216,3 +216,34 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# ==========================
+# CodeAtlas AI
+# ==========================
+
+# IDE
+.vscode/
+.idea/
+
+# OS Files
+.DS_Store
+Thumbs.db
+
+# Temporary cloned repositories
+temp_repos/
+
+# Vector Database (if using local)
+chroma_db/
+qdrant_data/
+
+# Logs
+logs/
+
+# Uploaded files
+uploads/
+
+# Generated reports
+reports/
+
+# Build
+*.zip
