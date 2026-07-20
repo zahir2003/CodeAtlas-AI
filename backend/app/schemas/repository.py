@@ -1,4 +1,6 @@
-from pydantic import BaseModel, HttpUrl
+from uuid import UUID
+
+from pydantic import BaseModel, ConfigDict, HttpUrl
 
 from app.schemas.risk_assessment import RepositoryRiskAssessment
 
@@ -8,7 +10,10 @@ class RepositoryCreate(BaseModel):
 
 
 class RepositoryResponse(BaseModel):
-    repository_id: int
+    model_config = ConfigDict(from_attributes=True)
+
+    repository_id: UUID
+
     submitted_url: HttpUrl
     canonical_url: HttpUrl
     redirected: bool

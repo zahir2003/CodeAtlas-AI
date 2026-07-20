@@ -1,11 +1,11 @@
 from app.jobs.job_manager import JobManager
 from app.jobs.job_status import JobStatus
-
+from uuid import UUID
 
 class Worker:
 
     @staticmethod
-    async def process(repository_id: int):
+    async def process(repository_id: UUID):
 
         JobManager.update_job(
             repository_id,

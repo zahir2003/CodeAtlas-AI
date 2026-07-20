@@ -1,24 +1,27 @@
 import logging
-import os
 import sys
-from pathlib import Path
 
-# Project Root (CodeAtlas-AI)
-PROJECT_ROOT = Path(__file__).resolve().parents[3]
+from app.core.config import LOGS_DIR
 
-LOG_DIR = PROJECT_ROOT / "logs"
-LOG_DIR.mkdir(exist_ok=True)
+LOGS_DIR.mkdir(
+    parents=True,
+    exist_ok=True,
+)
 
-LOG_FILE = LOG_DIR / "codeatlas.log"
+LOG_FILE = LOGS_DIR / "codeatlas.log"
 
 
 def setup_logging():
+
     logging.basicConfig(
         level=logging.INFO,
         format="%(asctime)s | %(levelname)s | %(name)s | %(message)s",
         handlers=[
             logging.StreamHandler(sys.stdout),
-            logging.FileHandler(LOG_FILE, encoding="utf-8"),
+            logging.FileHandler(
+                LOG_FILE,
+                encoding="utf-8",
+            ),
         ],
-        force=True,   # Reconfigure logging when uvicorn reloads
+        force=True,
     )

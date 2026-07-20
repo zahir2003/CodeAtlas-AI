@@ -1,12 +1,12 @@
 from pathlib import Path
 
 from app.parsers.file_reader import FileReader
-
+from uuid import UUID
 
 class DocumentBuilder:
 
     @staticmethod
-    def build(repository_id: int, repository_path: Path):
+    def build(repository_id: UUID, repository_path: Path):
 
         documents = []
 

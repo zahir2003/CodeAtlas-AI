@@ -6,7 +6,7 @@ class ChunkBuilder:
     @staticmethod
     def chunk(document):
 
-        content = document["content"]
+        content = document.content
 
         chunks = []
 
@@ -14,16 +14,18 @@ class ChunkBuilder:
 
         while start < len(content):
 
-            end = start + ChunkBuilder.CHUNK_SIZE
-
-            chunk = content[start:end]
+            end = min(
+                start + ChunkBuilder.CHUNK_SIZE,
+                len(content),
+            )
 
             chunks.append(
                 {
-                    "repository_id": document["repository_id"],
-                    "path": document["path"],
-                    "extension": document["extension"],
-                    "content": chunk,
+                    "repository_id": document.repository_id,
+                    "path": document.path,
+                    "language": document.language,
+                    "extension": document.extension,
+                    "content": content[start:end],
                     "start_char": start,
                     "end_char": end,
                 }

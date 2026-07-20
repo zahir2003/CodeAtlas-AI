@@ -1,7 +1,8 @@
 import logging
 from pathlib import Path
+from uuid import UUID
 
-from git import Repo, GitCommandError
+from git import GitCommandError, Repo
 
 from app.storage.repository_manager import RepositoryManager
 
@@ -13,20 +14,31 @@ class CloneService:
     @staticmethod
     def clone_repository(
         clone_url: str,
-        repository_id: int,
+        repository_id: UUID,
     ) -> Path:
 
-        repo_path = RepositoryManager.repository_path(repository_id)
+        RepositoryManager.initialize()
 
-        # Already cloned
+        repo_path = RepositoryManager.get_repository_path(
+            repository_id,
+        )
+
+        repo_path.parent.mkdir(
+            parents=True,
+            exist_ok=True,
+        )
+
         if repo_path.exists():
+
             logger.info(
                 "Repository already exists | ID=%s",
                 repository_id,
             )
+
             return repo_path
 
         try:
+
             logger.info(
                 "Cloning repository | ID=%s",
                 repository_id,
@@ -47,9 +59,11 @@ class CloneService:
             return repo_path
 
         except GitCommandError as e:
+
             logger.error(
                 "Clone failed | ID=%s | Error=%s",
                 repository_id,
                 str(e),
             )
+
             raise

@@ -1,8 +1,8 @@
 from pydantic import BaseModel
-
+from uuid import UUID
 
 class Chunk(BaseModel):
-    repository_id: int
+    repository_id: UUID
 
     path: str
 

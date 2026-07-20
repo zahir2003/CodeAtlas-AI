@@ -1,6 +1,7 @@
 from datetime import datetime
 
 from app.jobs.job_status import JobStatus
+from uuid import UUID
 
 
 class JobManager:
@@ -8,7 +9,7 @@ class JobManager:
     jobs = {}
 
     @classmethod
-    def create_job(cls, repository_id: int):
+    def create_job(cls, repository_id: UUID):
 
         cls.jobs[repository_id] = {
             "repository_id": repository_id,
@@ -21,7 +22,7 @@ class JobManager:
     @classmethod
     def update_job(
         cls,
-        repository_id: int,
+        repository_id: UUID,
         status: JobStatus,
         progress: int,
         message: str,
@@ -32,6 +33,6 @@ class JobManager:
         cls.jobs[repository_id]["message"] = message
 
     @classmethod
-    def get_job(cls, repository_id: int):
+    def get_job(cls, repository_id: UUID):
 
         return cls.jobs.get(repository_id)

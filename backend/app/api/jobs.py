@@ -2,6 +2,7 @@ from fastapi import APIRouter, HTTPException
 
 from app.jobs.job_manager import JobManager
 from app.jobs.job_status import JobStatus
+from uuid import UUID
 
 router = APIRouter(
     prefix="/jobs",
@@ -10,7 +11,7 @@ router = APIRouter(
 
 
 @router.post("/test/{repository_id}")
-async def create_test_job(repository_id: int):
+async def create_test_job(repository_id: UUID):
 
     JobManager.create_job(repository_id)
 
@@ -25,7 +26,7 @@ async def create_test_job(repository_id: int):
 
 
 @router.get("/{repository_id}")
-async def get_job(repository_id: int):
+async def get_job(repository_id: UUID):
 
     job = JobManager.get_job(repository_id)
 

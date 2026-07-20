@@ -8,9 +8,17 @@ from app.storage.repository_manager import RepositoryManager
 from app.api.clone import router as clone_router
 from app.api.discovery import router as discovery_router
 from app.api.jobs import router as jobs_router
+from app.api.parser import router as parser_router
+from app.api.routes.indexing import router as indexing_router
+from app.api.routes.chat import router as chat_router
+from app.api.routes.search import router as search_router
+from app.clients.qdrant_client import QdrantService
+
+# from app.parsers.ast_parser import ASTParser
 
 setup_logging()
-RepositoryManager.initialize()
+
+qdrant = QdrantService()
 
 app = FastAPI(
     title=settings.PROJECT_NAME,
@@ -38,6 +46,34 @@ app.include_router(
     jobs_router,
     prefix=settings.API_PREFIX,
 )
+
+app.include_router(
+    parser_router,
+    prefix=settings.API_PREFIX,
+)
+
+app.include_router(
+    indexing_router,
+    prefix=settings.API_PREFIX,
+)
+
+app.include_router(
+    search_router,
+    prefix=settings.API_PREFIX,
+)
+
+app.include_router(chat_router)
+
+# app.include_router(chat_router)
+
+
+@app.on_event("startup")
+async def startup():
+
+    RepositoryManager.initialize()
+
+    await qdrant.initialize()
+
 
 @app.get("/", tags=["Home"])
 async def root():

@@ -2,6 +2,7 @@ from fastapi import APIRouter
 
 from app.discovery.file_discovery import FileDiscovery
 from app.storage.repository_manager import RepositoryManager
+from uuid import UUID
 
 router = APIRouter(
     prefix="/discovery",
@@ -10,9 +11,9 @@ router = APIRouter(
 
 
 @router.get("/{repository_id}")
-async def discover(repository_id: int):
+async def discover(repository_id: UUID):
 
-    path = RepositoryManager.repository_path(repository_id)
+    path = RepositoryManager.get_repository_path(repository_id)
 
     manifest = FileDiscovery.discover(path)
 

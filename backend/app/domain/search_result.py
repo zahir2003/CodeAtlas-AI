@@ -1,5 +1,5 @@
 from pydantic import BaseModel
-
+from uuid import UUID
 
 class SearchResult(BaseModel):
 
@@ -7,7 +7,7 @@ class SearchResult(BaseModel):
 
     chunk_id: str
 
-    repository_id: int
+    repository_id: UUID
 
     path: str
 
